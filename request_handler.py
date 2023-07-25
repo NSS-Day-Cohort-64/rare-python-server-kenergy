@@ -1,7 +1,11 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 
-from views import create_user, login_user, get_all_categories, get_single_category, create_category, delete_category, update_category, get_all_comments, get_single_comment, create_comment, delete_comment, update_comment, get_all_posts, get_single_post, create_post, delete_post, update_post, get_all_post_tags, get_single_post_tag, create_post_tag, delete_post_tag, update_post_tag, get_all_reactions, get_single_reaction, get_all_post_reactions, get_single_post_reaction, create_post_reaction, get_all_tags, get_single_tag, create_tag, delete_tag, update_tag
+from views import create_user, login_user, get_all_categories, get_single_category, create_category,\
+    delete_category, update_category, get_all_comments, get_single_comment, create_comment, delete_comment, update_comment,\
+    get_all_posts, get_single_post, create_post, delete_post, update_post, get_all_post_tags, get_single_post_tag,\
+    create_post_tag, delete_post_tag, update_post_tag, get_all_reactions, get_single_reaction, get_all_post_reactions,\
+    get_single_post_reaction, create_post_reaction, get_all_tags, get_single_tag, create_tag, delete_tag, update_tag
 
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -53,7 +57,6 @@ class HandleRequests(BaseHTTPRequestHandler):
         """Handle Get requests to the server"""
         pass
 
-
     def do_POST(self):
         """Make a post request to the server"""
         self._set_headers(201)
@@ -81,7 +84,6 @@ class HandleRequests(BaseHTTPRequestHandler):
         else:
             self._set_headers(404)
             response = f'{{"error": "Resource {resource} not found"}}'
-        
 
         self.wfile.write(response.encode())
 
@@ -125,12 +127,11 @@ class HandleRequests(BaseHTTPRequestHandler):
             self._set_headers(404)
             updated_item = {"error": "Resource not found"}
 
-
         self.wfile.write((json.dumps(updated_item)).encode())
 
     def do_DELETE(self):
         """Handle DELETE Requests"""
-        
+
         # Parse the URL
         (resource, id) = self.parse_url(self.path)
 
@@ -158,10 +159,9 @@ class HandleRequests(BaseHTTPRequestHandler):
             self._set_headers(404)
             error_message = "Unable to delete"
             self.wfile.write(error_message.encode())
-        
+
         self.wfile.write("".encode())
 
-  
 
 def main():
     """Starts the server on port 8088 using the HandleRequests class
