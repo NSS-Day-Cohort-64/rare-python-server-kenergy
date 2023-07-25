@@ -49,7 +49,7 @@ def get_single_post_reaction(id):
         post_reaction = Post_Reaction(data['id'], data['reaction_id'], data['user_id'], data['post_id'])
 
         return post_reaction.__dict__
-def create_post_reaction(id, new_post_reaction):
+def create_post_reaction(new_post_reaction):
     with sqlite3.connect("./db.sqlite3") as conn:
         db_cursor = conn.cursor()
 
