@@ -155,6 +155,7 @@ INSERT INTO "Tags" VALUES (null, "Dollars");
 INSERT INTO "Tags" VALUES (null, "Jimmy Carter");
 INSERT INTO "Tags" VALUES (null, "Barrack Obama");
 INSERT INTO "Tags" VALUES (null, "John F. Kennedy");
+INSERT INTO "Tags" VALUES (null, "Abraham Lincoln");
 
 INSERT INTO "PostTags" VALUES (null, 1, 6);
 INSERT INTO "PostTags" VALUES (null, 2, 12);
