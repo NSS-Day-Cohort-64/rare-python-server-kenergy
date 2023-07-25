@@ -17,7 +17,7 @@ def get_all_post_reactions():
             pr.user_id,
             pr.reaction_id
             pr.post_id
-        FROM PostReaction pr
+        FROM PostReactions pr
         """)
     post_reactions = []
 
@@ -40,7 +40,7 @@ def get_single_post_reaction(id):
             pr.reaction_id,
             pr.user_id,
             pr.post_id
-        FROM PostReaction pr
+        FROM PostReactions pr
         WHERE pr.id = ?
         """, ( id, ))
 

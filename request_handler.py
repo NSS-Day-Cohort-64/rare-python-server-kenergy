@@ -54,8 +54,65 @@ class HandleRequests(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        """Handle Get requests to the server"""
-        pass
+        """Handles GET requests to the server
+        """
+        # Set the response code to 'Ok'
+        self._set_headers(200)
+        response = {}  # Default response
+
+        # Parse the URL and capture the tuple that is returned
+        (resource, id, key, value) = self.parse_url(self.path)
+
+        if resource == "categories":
+            if id is not None:
+                response = get_single_category(id)
+
+            else:
+                response = get_all_categories()
+
+        if resource == "comments":
+            if id is not None:
+                response = get_single_comment(id)
+
+            else:
+                response = get_all_comments()
+
+        if resource == "post_reactions":
+            if id is not None:
+                response = get_single_post_reaction(id)
+
+            else:
+                response = get_all_post_reactions()
+
+        if resource == "post_tags":
+            if id is not None:
+                response = get_single_post_tag(id)
+
+            else:
+                response = get_all_post_tags()
+
+        if resource == "posts":
+            if id is not None:
+                response = get_single_post(id)
+
+            else:
+                response = get_all_posts()
+
+        if resource == "reactions":
+            if id is not None:
+                response = get_single_reaction(id)
+
+            else:
+                response = get_all_reactions()
+
+        if resource == "tags":
+            if id is not None:
+                response = get_single_tag(id)
+
+            else:
+                response = get_all_tags()
+
+        self.wfile.write(json.dumps(response).encode())
 
     def do_POST(self):
         """Make a post request to the server"""
