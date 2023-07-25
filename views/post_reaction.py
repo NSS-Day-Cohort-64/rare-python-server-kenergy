@@ -17,7 +17,7 @@ def get_all_post_reactions():
             pr.user_id,
             pr.reaction_id
             pr.post_id
-        FROM PostReaction pr
+        FROM PostReactions pr
         """)
     post_reactions = []
 
@@ -40,7 +40,7 @@ def get_single_post_reaction(id):
             pr.reaction_id,
             pr.user_id,
             pr.post_id
-        FROM PostReaction pr
+        FROM PostReactions pr
         WHERE pr.id = ?
         """, ( id, ))
 
@@ -54,7 +54,7 @@ def create_post_reaction(new_post_reaction):
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
-        INSERT INTO PostReaction
+        INSERT INTO PostReactions
             ( user_id, reaction_id, post_id )
         VALUES
             ( ?, ?, ?);
