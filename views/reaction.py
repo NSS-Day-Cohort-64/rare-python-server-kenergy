@@ -13,7 +13,7 @@ def get_all_reactions():
         db_cursor.execute("""
         SELECT
             r.id,
-            r.label
+            r.label,
             r.image_url
         FROM Reactions r
         """)

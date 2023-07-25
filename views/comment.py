@@ -15,7 +15,7 @@ def get_all_comments():
             c.id,
             c.author_id,
             c.post_id,
-            c.content,
+            c.content
         FROM Comments c
         """)
 
@@ -26,7 +26,7 @@ def get_all_comments():
         for row in dataset:
             comment = Comment(row["id"], row["author_id"], row["post_id"], row["content"])
 
-            comments.append(comment)
+            comments.append(comment.__dict__)
 
     return comments
 
@@ -41,7 +41,7 @@ def get_single_comment(id):
             c.id,
             c.author_id,
             c.post_id,
-            c.content,
+            c.content
         FROM Comments c
         WHERE c.id = ?
         """, ( id, ))
