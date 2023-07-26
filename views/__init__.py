@@ -30,6 +30,11 @@ from .tag import delete_tag
 from .tag import update_tag
 from .users import login_user
 from .users import create_user
+from .users import get_all_users
+from .users import get_single_user
+from .post import get_posts_by_category
+from .post import get_posts_by_author
+from .post import get_post_by_tag
 from .subscription import get_all_subscriptions
 from .subscription import get_single_subscriptions
 from .subscription import create_subscription

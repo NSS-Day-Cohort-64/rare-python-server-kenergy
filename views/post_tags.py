@@ -76,6 +76,9 @@ def delete_post_tag(id):
         DELETE FROM PostTags
         WHERE id = ?
         """, (id, ))
+
+        return ""
+
 def update_post_tag(id, new_post_tag):
     """Update post tag."""
     with sqlite3.connect("./db.sqlite3") as conn:

@@ -78,6 +78,9 @@ def delete_tag(id):
         DELETE FROM Tags
         WHERE id = ?
         """, (id, ))
+
+        return ""
+
 def update_tag(id, new_tag):
     with sqlite3.connect("./db.sqlite3") as conn:
         db_cursor = conn.cursor()
