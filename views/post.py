@@ -7,8 +7,6 @@ from models import Tag
 from models import Post_Tag, User, Category
 
 
-
-
 def get_all_posts():
     """Get all posts."""
     with sqlite3.connect("./db.sqlite3") as conn:
@@ -33,10 +31,12 @@ def get_all_posts():
         dataset = db_cursor.fetchall()
 
         for row in dataset:
-            post = Post(row['id'], row['user_id'], row['category_id'], row['title'], row['publication_date'], row['image_url'], row['content'], row['approved'])
+            post = Post(row['id'], row['user_id'], row['category_id'], row['title'],
+                        row['publication_date'], row['image_url'], row['content'], row['approved'])
             posts.append(post.__dict__)
 
     return posts
+
 
 def get_single_post(id):
     """Get single post."""
@@ -56,14 +56,16 @@ def get_single_post(id):
             p.approved
         FROM Posts p
         WHERE p.id = ?
-        """, ( id, ))
+        """, (id, ))
 
         data = db_cursor.fetchone()
 
-
-        post = Post(data['id'], data['user_id'], data['category_id'], data['title'], data['publication_date'], data['image_url'], data['content'], data['approved'])
+        post = Post(data['id'], data['user_id'], data['category_id'], data['title'],
+                    data['publication_date'], data['image_url'], data['content'], data['approved'])
 
         return post.__dict__
+
+
 def create_post(new_post):
     """Create new post."""
     with sqlite3.connect("./db.sqlite3") as conn:
@@ -81,6 +83,7 @@ def create_post(new_post):
         new_post['id'] = id
 
     return new_post
+
 
 def update_post(id, new_post):
     with sqlite3.connect("./db.sqlite3") as conn:
@@ -104,6 +107,7 @@ def update_post(id, new_post):
     else:
         return True
 
+
 def delete_post(id):
     """Delete post."""
     with sqlite3.connect("./db.sqlite3") as conn:
@@ -113,6 +117,8 @@ def delete_post(id):
         DELETE FROM Posts
         WHERE id = ?
         """, (id, ))
+
+
 def get_post_by_tag(value):
     """Get posts by tag."""
     with sqlite3.connect("./db.sqlite3") as conn:
@@ -143,15 +149,13 @@ def get_post_by_tag(value):
         dataset = db_cursor.fetchall()
 
         for row in dataset:
-            post = Post(row['id'], row['user_id'], row['category_id'], row['title'], row['publication_date'], row['image_url'], row['content'], row['approved'])
-            tag = Tag(row['id'], row['label'])
-            post_tag = Post_Tag(row['id'], row['post_id'], row['tag_id'])
-            
-            post.tag = tag.__dict__
-            post.post_tag = post_tag.__dict__
+            post = Post(row['id'], row['user_id'], row['category_id'], row['title'],
+                        row['publication_date'], row['image_url'], row['content'], row['approved'])
+
             posts.append(post.__dict__)
 
     return posts
+
 
 def get_posts_by_category(value):
     """Get posts by category."""
@@ -168,23 +172,24 @@ def get_posts_by_category(value):
             p.publication_date,
             p.image_url,
             p.content,
-            p.approved
+            p.approved,
+            c.label
         FROM Posts p
         JOIN Categories c on p.category_id = c.id
-        WHERE p.category_id = ?
-        """, ( value, ))
+        WHERE c.label = ?
+        """, (value, ))
 
         posts = []
 
         dataset = db_cursor.fetchall()
 
         for row in dataset:
-            category = Category(row['id'], row['label'])
-            post = Post(row['id'], row['user_id'], row['category_id'], row['title'], row['publication_date'], row['image_url'], row['content'], row['approved'])
-            post.category = category.__dict__
+            post = Post(row['id'], row['user_id'], row['category_id'], row['title'],
+                        row['publication_date'], row['image_url'], row['content'], row['approved'])
             posts.append(post.__dict__)
 
     return posts
+
 
 def get_posts_by_author(value):
     """Get posts by author."""
@@ -202,24 +207,19 @@ def get_posts_by_author(value):
             p.image_url,
             p.content,
             p.approved,
-            u.id,
             u.username
-
-
         FROM Posts p
         JOIN Users u on p.user_id = u.id
         WHERE u.username = ?
-        """, ( value, ))
+        """, (value, ))
 
         posts = []
 
         dataset = db_cursor.fetchall()
 
         for row in dataset:
-            user = User(row['id'], row['username'])
-            post = Post(row['id'], row['user_id'], row['category_id'], row['title'], row['publication_date'], row['image_url'], row['content'], row['approved'])
-            post.user = user.__dict__
+            post = Post(row['id'], row['user_id'], row['category_id'], row['title'],
+                        row['publication_date'], row['image_url'], row['content'], row['approved'])
             posts.append(post.__dict__)
 
     return posts
-

@@ -66,13 +66,13 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         if '?' not in self.path:
             (resource, id) = parsed
-    
-            if resource == "categories":
-                    if id is not None:
-                        response = get_single_category(id)
 
-                    else:
-                        response = get_all_categories()
+            if resource == "categories":
+                if id is not None:
+                    response = get_single_category(id)
+
+                else:
+                    response = get_all_categories()
 
             if resource == "comments":
                 if id is not None:
@@ -130,8 +130,6 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = (get_posts_by_author(value))
             if key == 'category' and resource == 'posts':
                 response = (get_posts_by_category(value))
-                
-            
 
         self.wfile.write(json.dumps(response).encode())
 
@@ -175,34 +173,26 @@ class HandleRequests(BaseHTTPRequestHandler):
         (resource, id) = self.parse_url()
         response = {}
         success = False
-       
-
-        
 
         if resource == "categories":
-            
-           
-           success = update_category(id, post_body)
+
+            success = update_category(id, post_body)
 
         elif resource == "comments":
-           
-           
-           success =  update_comment(id, post_body)
+
+            success = update_comment(id, post_body)
 
         elif resource == "posts":
-            
-           
+
             success = update_post(id, post_body)
 
         elif resource == "tags":
-           
-           
+
             success = update_tag(id, post_body)
 
         elif resource == "post_tags":
-            
-            
-           success = update_post_tag(id, post_body)
+
+            success = update_post_tag(id, post_body)
 
         if success:
             self._set_headers(204)
@@ -210,7 +200,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         else:
             self._set_headers(404)
             response = {"error": "Resource not found"}
-        
+
         self.wfile.write(json.dumps(response).encode())
 
     def do_DELETE(self):
