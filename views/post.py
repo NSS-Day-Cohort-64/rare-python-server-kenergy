@@ -118,6 +118,7 @@ def delete_post(id):
         WHERE id = ?
         """, (id, ))
 
+        return ""
 
 def get_post_by_tag(value):
     """Get posts by tag."""
