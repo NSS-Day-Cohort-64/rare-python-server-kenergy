@@ -4,6 +4,7 @@ import json
 from datetime import datetime
 from models import Comment
 
+
 def get_all_comments():
     """Get all comments from the database"""
     with sqlite3.connect("./db.sqlite3") as conn:
@@ -24,11 +25,13 @@ def get_all_comments():
         dataset = db_cursor.fetchall()
 
         for row in dataset:
-            comment = Comment(row["id"], row["author_id"], row["post_id"], row["content"])
+            comment = Comment(row["id"], row["author_id"],
+                              row["post_id"], row["content"])
 
             comments.append(comment.__dict__)
 
     return comments
+
 
 def get_single_comment(id):
     """Get a single comment from the database"""
@@ -44,13 +47,15 @@ def get_single_comment(id):
             c.content
         FROM Comments c
         WHERE c.id = ?
-        """, ( id, ))
+        """, (id, ))
 
         data = db_cursor.fetchone()
 
-        comment = Comment(data["id"], data["author_id"], data["post_id"], data["content"])
+        comment = Comment(data["id"], data["author_id"],
+                          data["post_id"], data["content"])
 
     return comment.__dict__
+
 
 def create_comment(new_comment):
     """Create a new comment in the database"""
@@ -70,6 +75,7 @@ def create_comment(new_comment):
 
     return new_comment
 
+
 def delete_comment(id):
     """Delete a comment from the database"""
     with sqlite3.connect("./db.sqlite3") as conn:
@@ -79,6 +85,9 @@ def delete_comment(id):
         DELETE FROM Comments
         WHERE id = ?
         """, (id, ))
+
+        return ""
+
 
 def update_comment(id, new_comment):
     """Update a comment in the database"""

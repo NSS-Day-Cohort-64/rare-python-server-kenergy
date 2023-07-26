@@ -4,6 +4,7 @@ import json
 from datetime import datetime
 from models import Category
 
+
 def get_all_categories():
     """Get all categories from the database"""
     with sqlite3.connect("./db.sqlite3") as conn:
@@ -28,6 +29,7 @@ def get_all_categories():
 
     return categories
 
+
 def get_single_category(id):
     """Get a single category from the database"""
     with sqlite3.connect("./db.sqlite3") as conn:
@@ -40,13 +42,14 @@ def get_single_category(id):
             c.label
         FROM Categories c
         WHERE c.id = ?
-        """, ( id, ))
+        """, (id, ))
 
         data = db_cursor.fetchone()
 
         category = Category(data["id"], data["label"])
 
     return category.__dict__
+
 
 def create_category(new_category):
     """Create a new category in the database"""
@@ -66,6 +69,7 @@ def create_category(new_category):
 
     return json.dumps(new_category)
 
+
 def delete_category(id):
     """Delete a category from the database"""
     with sqlite3.connect("./db.sqlite3") as conn:
@@ -75,6 +79,10 @@ def delete_category(id):
         DELETE FROM Categories
         WHERE id = ?
         """, (id, ))
+
+        return ""
+
+
 def update_category(id, new_category):
     """Update a category in the database"""
     with sqlite3.connect("./db.sqlite3") as conn:
@@ -88,7 +96,7 @@ def update_category(id, new_category):
         """, (new_category["label"], id, ))
 
         rows_affected = db_cursor.rowcount
-         
+
         if rows_affected == 0:
             return False
         else:
