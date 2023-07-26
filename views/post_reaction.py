@@ -15,7 +15,7 @@ def get_all_post_reactions():
         SELECT
             pr.id,
             pr.user_id,
-            pr.reaction_id
+            pr.reaction_id,
             pr.post_id
         FROM PostReactions pr
         """)

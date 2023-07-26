@@ -3,6 +3,9 @@ import sqlite3
 import json
 from datetime import datetime
 from models import Post
+from models import Tag
+from models import Post_Tag, User, Category
+
 
 
 
@@ -57,6 +60,7 @@ def get_single_post(id):
 
         data = db_cursor.fetchone()
 
+
         post = Post(data['id'], data['user_id'], data['category_id'], data['title'], data['publication_date'], data['image_url'], data['content'], data['approved'])
 
         return post.__dict__
@@ -109,4 +113,113 @@ def delete_post(id):
         DELETE FROM Posts
         WHERE id = ?
         """, (id, ))
+def get_post_by_tag(value):
+    """Get posts by tag."""
+    with sqlite3.connect("./db.sqlite3") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        SELECT
+            p.id,
+            p.user_id,
+            p.category_id,
+            p.title,
+            p.publication_date,
+            p.image_url,
+            p.content,
+            p.approved,
+            pt.tag_id,
+            pt.post_id,
+            t.label
+        FROM Posts p
+        JOIN PostTags pt on p.id = pt.post_id
+        JOIN Tags t on pt.tag_id = t.id
+        WHERE t.label = ?
+        """, (value, ))
+
+        posts = []
+
+        dataset = db_cursor.fetchall()
+
+        for row in dataset:
+            post = Post(row['id'], row['user_id'], row['category_id'], row['title'], row['publication_date'], row['image_url'], row['content'], row['approved'])
+            tag = Tag(row['id'], row['label'])
+            post_tag = Post_Tag(row['id'], row['post_id'], row['tag_id'])
+            
+            post.tag = tag.__dict__
+            post.post_tag = post_tag.__dict__
+            posts.append(post.__dict__)
+
+    return posts
+
+def get_posts_by_category(value):
+    """Get posts by category."""
+    with sqlite3.connect("./db.sqlite3") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        SELECT
+            p.id,
+            p.user_id,
+            p.category_id,
+            p.title,
+            p.publication_date,
+            p.image_url,
+            p.content,
+            p.approved
+        FROM Posts p
+        JOIN Categories c on p.category_id = c.id
+        WHERE p.category_id = ?
+        """, ( value, ))
+
+        posts = []
+
+        dataset = db_cursor.fetchall()
+
+        for row in dataset:
+            category = Category(row['id'], row['label'])
+            post = Post(row['id'], row['user_id'], row['category_id'], row['title'], row['publication_date'], row['image_url'], row['content'], row['approved'])
+            post.category = category.__dict__
+            posts.append(post.__dict__)
+
+    return posts
+
+def get_posts_by_author(value):
+    """Get posts by author."""
+    with sqlite3.connect("./db.sqlite3") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        SELECT
+            p.id,
+            p.user_id,
+            p.category_id,
+            p.title,
+            p.publication_date,
+            p.image_url,
+            p.content,
+            p.approved,
+            u.id,
+            u.username
+
+
+        FROM Posts p
+        JOIN Users u on p.user_id = u.id
+        WHERE u.username = ?
+        """, ( value, ))
+
+        posts = []
+
+        dataset = db_cursor.fetchall()
+
+        for row in dataset:
+            user = User(row['id'], row['username'])
+            post = Post(row['id'], row['user_id'], row['category_id'], row['title'], row['publication_date'], row['image_url'], row['content'], row['approved'])
+            post.user = user.__dict__
+            posts.append(post.__dict__)
+
+    return posts
 
