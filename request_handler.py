@@ -5,7 +5,8 @@ from views import create_user, login_user, get_all_categories, get_single_catego
     delete_category, update_category, get_all_comments, get_single_comment, create_comment, delete_comment, update_comment,\
     get_all_posts, get_single_post, create_post, delete_post, update_post, get_all_post_tags, get_single_post_tag,\
     create_post_tag, delete_post_tag, update_post_tag, get_all_reactions, get_single_reaction, get_all_post_reactions,\
-    get_single_post_reaction, create_post_reaction, get_all_tags, get_single_tag, create_tag, delete_tag, update_tag
+    get_single_post_reaction, create_post_reaction, get_all_tags, get_single_tag, create_tag, delete_tag, update_tag, \
+    get_single_subscriptions, get_all_subscriptions, create_subscription, delete_subscription
 
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -48,9 +49,9 @@ class HandleRequests(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods',
-                         'GET, POST, PUT, DELETE')
+                        'GET, POST, PUT, DELETE')
         self.send_header('Access-Control-Allow-Headers',
-                         'X-Requested-With, Content-Type, Accept')
+                        'X-Requested-With, Content-Type, Accept')
         self.end_headers()
 
     def do_GET(self):
@@ -61,7 +62,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         response = {}  # Default response
 
         # Parse the URL and capture the tuple that is returned
-        (resource, id, key, value) = self.parse_url(self.path)
+        (resource, id) = self.parse_url()
 
         if resource == "categories":
             if id is not None:
@@ -112,6 +113,13 @@ class HandleRequests(BaseHTTPRequestHandler):
             else:
                 response = get_all_tags()
 
+        if resource == "subscriptions":
+            if id is not None:
+                response = get_single_subscriptions(id)
+
+            else:
+                response = get_all_subscriptions()
+
         self.wfile.write(json.dumps(response).encode())
 
     def do_POST(self):
@@ -138,6 +146,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             response = create_tag(post_body)
         elif resource == 'post_reactions':
             response = create_post_reaction(post_body)
+        elif resource == 'subscriptions':
+            response = create_subscription(post_body)
         else:
             self._set_headers(404)
             response = f'{{"error": "Resource {resource} not found"}}'
@@ -151,7 +161,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         post_body = json.loads(post_body)
 
         # Parse the URL
-        (resource, id) = self.parse_url(self.path)
+        (resource, id) = self.parse_url()
 
         updated_item = None
 
@@ -190,7 +200,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         """Handle DELETE Requests"""
 
         # Parse the URL
-        (resource, id) = self.parse_url(self.path)
+        (resource, id) = self.parse_url()
 
         if resource == "category":
             self._set_headers(204)
@@ -211,6 +221,10 @@ class HandleRequests(BaseHTTPRequestHandler):
         if resource == "post_tag":
             self._set_headers(204)
             delete_post_tag(id)
+
+        if resource == "subscriptions":
+            self._set_headers(204)
+            delete_subscription(id)
 
         else:
             self._set_headers(404)

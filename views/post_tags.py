@@ -39,7 +39,7 @@ def get_single_post_tag(id):
             pt.id,
             pt.post_id,
             pt.tag_id
-        FROM PostTag pt
+        FROM PostTags pt
         WHERE pt.id = ?
         """, ( id, ))
 
