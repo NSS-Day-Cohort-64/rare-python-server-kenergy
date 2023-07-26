@@ -8,7 +8,8 @@ CREATE TABLE "Users" (
   "password" varchar,
   "profile_image_url" varchar,
   "created_on" date,
-  "active" bit
+  "active" bit,
+  "is_admin" bit
 );
 
 CREATE TABLE "DemotionQueue" (
@@ -86,11 +87,11 @@ CREATE TABLE "Categories" (
   "label" varchar
 );
 
-INSERT INTO "Users" VALUES (null, "Lance", "Buckley", "lance@gmail.com", "Painter in the streets but a developer in the sheets", "Lancelot", "123abc", "https://ca.slack-edge.com/T03F2SDTJ-U04U46Q3CQZ-f1b4f383d0a2-512", "March 12th, 2021", True);
-INSERT INTO "Users" VALUES (null, "Belle", "Hollander", "belle@gmail.com", "Future TA", "TeacherAssistantBelle", "TA", "https://ca.slack-edge.com/T03F2SDTJ-U04KAQ5RU1H-10b66acf02a3-72", "December 25th, 2022", True);
-INSERT INTO "Users" VALUES (null, "Jonathan", "VanDuyne", "jonathan@gmail.com", "Ask me about my stocks", "Mr.MoneyBags", "$$$$", "https://ca.slack-edge.com/T03F2SDTJ-U04RA3YKLCW-5724d71c11af-72", "July 4th, 2023", True);
-INSERT INTO "Users" VALUES (null, "Sam", "Thrasher", "sam@gmail.com", "Ask me about barbie", "Kenergy", "password", "https://i.imgur.com/AuZYuAL.jpg", "January 16th, 1996", True);
-INSERT INTO "Users" VALUES (null, "Steve", "Brownlee", "steve@gmail.com", "And why do we think that is gang?", "Coach", "goldenrod", "https://i.imgur.com/Ho5gBlC.jpg", "June 21st, 1948", True);
+INSERT INTO "Users" VALUES (null, "Lance", "Buckley", "lance@gmail.com", "Painter in the streets but a developer in the sheets", "Lancelot", "123abc", "https://ca.slack-edge.com/T03F2SDTJ-U04U46Q3CQZ-f1b4f383d0a2-512", "March 12th, 2021", True, False);
+INSERT INTO "Users" VALUES (null, "Belle", "Hollander", "belle@gmail.com", "Future TA", "TeacherAssistantBelle", "TA", "https://ca.slack-edge.com/T03F2SDTJ-U04KAQ5RU1H-10b66acf02a3-72", "December 25th, 2022", True, True);
+INSERT INTO "Users" VALUES (null, "Jonathan", "VanDuyne", "jonathan@gmail.com", "Ask me about my stocks", "Mr.MoneyBags", "$$$$", "https://ca.slack-edge.com/T03F2SDTJ-U04RA3YKLCW-5724d71c11af-72", "July 4th, 2023", True, False);
+INSERT INTO "Users" VALUES (null, "Sam", "Thrasher", "sam@gmail.com", "Ask me about barbie", "Kenergy", "password", "https://i.imgur.com/AuZYuAL.jpg", "January 16th, 1996", True, False);
+INSERT INTO "Users" VALUES (null, "Steve", "Brownlee", "steve@gmail.com", "And why do we think that is gang?", "Coach", "goldenrod", "https://i.imgur.com/Ho5gBlC.jpg", "June 21st, 1948", True, True);
 
 INSERT INTO "Subscriptions" VALUES (null, 1, 2, "July 25th, 2023");
 INSERT INTO "Subscriptions" VALUES (null, 3, 2, "July 26th, 2023");

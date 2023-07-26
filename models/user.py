@@ -2,7 +2,7 @@ class User():
     """Creates the model for all users"""
 
     def __init__(self, id, first_name, last_name, email, bio, \
-                 username, password, profile_image_url, created_on, active):
+                username, password, profile_image_url, created_on, active, is_admin):
         self.id = id
         self.first_name = first_name
         self.last_name = last_name
@@ -13,3 +13,4 @@ class User():
         self.profile_image_url = profile_image_url
         self.created_on = created_on
         self.active = active
+        self.is_admin = is_admin

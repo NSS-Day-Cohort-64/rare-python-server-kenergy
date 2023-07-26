@@ -10,7 +10,7 @@ def login_user(user):
 
     Returns:
         json string: If the user was found will return valid boolean of True and the user's id as the token
-                     If the user was not found will return valid boolean False
+                    If the user was not found will return valid boolean False
     """
     with sqlite3.connect('./db.sqlite3') as conn:
         conn.row_factory = sqlite3.Row
@@ -52,7 +52,7 @@ def create_user(user):
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
-        Insert into Users (first_name, last_name, username, email, password, bio, created_on, active) values (?, ?, ?, ?, ?, ?, ?, 1)
+        Insert into Users (first_name, last_name, username, email, password, bio, created_on, active, is_admin) values (?, ?, ?, ?, ?, ?, ?, 1, ?)
         """, (
             user['first_name'],
             user['last_name'],
@@ -60,6 +60,7 @@ def create_user(user):
             user['email'],
             user['password'],
             user['bio'],
+            user['is_admin'],
             datetime.now()
         ))
 
