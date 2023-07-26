@@ -54,7 +54,7 @@ def create_post_reaction(new_post_reaction):
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
-        INSERT INTO PostReaction
+        INSERT INTO PostReactions
             ( user_id, reaction_id, post_id )
         VALUES
             ( ?, ?, ?);
