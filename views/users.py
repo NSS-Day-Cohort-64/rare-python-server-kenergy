@@ -3,6 +3,7 @@ import json
 from datetime import datetime
 from models import User
 
+
 def login_user(user):
     """Checks for the user in the database
 
@@ -61,8 +62,8 @@ def create_user(user):
             user['email'],
             user['password'],
             user['bio'],
-            user['is_admin'],
-            datetime.now()
+            datetime.now(),
+            user['is_admin']
         ))
 
         id = db_cursor.lastrowid
@@ -71,6 +72,8 @@ def create_user(user):
             'token': id,
             'valid': True
         })
+
+
 def get_all_users():
     with sqlite3.connect('./db.sqlite3') as conn:
         conn.row_factory = sqlite3.Row
@@ -97,7 +100,8 @@ def get_all_users():
         dataset = db_cursor.fetchall()
 
         for row in dataset:
-            user = User(row['id'], row['first_name'], row['last_name'], row['email'], row['bio'], row['username'], row['password'], row['profile_image_url'], row['created_on'], row['active'], row['is_admin'])
+            user = User(row['id'], row['first_name'], row['last_name'], row['email'], row['bio'], row['username'],
+                        row['password'], row['profile_image_url'], row['created_on'], row['active'], row['is_admin'])
             users.append(user.__dict__)
 
     return users
@@ -127,8 +131,7 @@ def get_single_user(id):
 
         data = db_cursor.fetchone()
 
-        user = User(data['id'], data['first_name'], data['last_name'], data['email'], data['bio'], data['username'], data['password'], data['profile_image_url'], data['created_on'], data['active'], data['is_admin'])
+        user = User(data['id'], data['first_name'], data['last_name'], data['email'], data['bio'], data['username'],
+                    data['password'], data['profile_image_url'], data['created_on'], data['active'], data['is_admin'])
 
         return user.__dict__
-
-

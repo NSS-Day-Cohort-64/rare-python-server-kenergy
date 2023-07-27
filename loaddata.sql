@@ -93,6 +93,8 @@ INSERT INTO "Users" VALUES (null, "Jonathan", "VanDuyne", "jonathan@gmail.com", 
 INSERT INTO "Users" VALUES (null, "Sam", "Thrasher", "sam@gmail.com", "Ask me about barbie", "Kenergy", "password", "https://i.imgur.com/AuZYuAL.jpg", "January 16th, 1996", True, False);
 INSERT INTO "Users" VALUES (null, "Steve", "Brownlee", "steve@gmail.com", "And why do we think that is gang?", "Coach", "goldenrod", "https://i.imgur.com/Ho5gBlC.jpg", "June 21st, 1948", True, True);
 
+DROP TABLE "Users";
+
 INSERT INTO "Subscriptions" VALUES (null, 1, 2, "July 25th, 2023");
 INSERT INTO "Subscriptions" VALUES (null, 3, 2, "July 26th, 2023");
 INSERT INTO "Subscriptions" VALUES (null, 4, 3, "July 27th, 2023");
