@@ -14,3 +14,4 @@ class User():
         self.created_on = created_on
         self.active = active
         self.is_admin = is_admin
+        
