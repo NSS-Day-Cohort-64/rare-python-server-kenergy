@@ -96,7 +96,7 @@ def get_all_users():
         dataset = db_cursor.fetchall()
 
         for row in dataset:
-            user = User(row['id'], row['first_name'], row['last_name'], row['email'], row['bio'], row['username'], row['password'], row['profile_image_url'], row['created_on'], row['active'])
+            user = User(row['id'], row['first_name'], row['last_name'], row['email'], row['bio'], row['username'], row['password'], row['profile_image_url'], row['created_on'], row['active'], row['is_admin'])
             users.append(user.__dict__)
 
     return users
@@ -125,7 +125,7 @@ def get_single_user(id):
 
         data = db_cursor.fetchone()
 
-        user = User(data['id'], data['first_name'], data['last_name'], data['email'], data['bio'], data['username'], data['password'], data['profile_image_url'], data['created_on'], data['active'])
+        user = User(data['id'], data['first_name'], data['last_name'], data['email'], data['bio'], data['username'], data['password'], data['profile_image_url'], data['created_on'], data['active'], data['is_admin'])
 
         return user.__dict__
 
