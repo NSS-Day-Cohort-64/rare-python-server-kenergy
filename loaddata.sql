@@ -12,6 +12,8 @@ CREATE TABLE "Users" (
   "is_admin" bit
 );
 
+
+
 CREATE TABLE "DemotionQueue" (
   "action" varchar,
   "admin_id" INTEGER,
