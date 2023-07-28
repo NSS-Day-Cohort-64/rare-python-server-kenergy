@@ -7,7 +7,7 @@ from views import create_user, login_user, get_all_categories, get_single_catego
     create_post_tag, delete_post_tag, update_post_tag, get_all_reactions, get_single_reaction, get_all_post_reactions,\
     get_all_users, get_single_user, get_post_by_tag, get_posts_by_author, get_posts_by_category, \
     get_single_post_reaction, create_post_reaction, get_all_tags, get_single_tag, create_tag, delete_tag, update_tag, \
-    get_single_subscriptions, get_all_subscriptions, create_subscription, delete_subscription
+    get_single_subscriptions, get_all_subscriptions, create_subscription, delete_subscription, update_user
 
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -203,6 +203,10 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == "post_tags":
 
             success = update_post_tag(id, post_body)
+        
+        elif resource == "users":
+
+            success = update_user(id, post_body)
 
         if success:
             self._set_headers(204)

@@ -32,6 +32,7 @@ from .users import login_user
 from .users import create_user
 from .users import get_all_users
 from .users import get_single_user
+from .users import update_user
 from .post import get_posts_by_category
 from .post import get_posts_by_author
 from .post import get_post_by_tag

@@ -173,3 +173,22 @@ INSERT INTO "Categories" VALUES (null, "Politics");
 INSERT INTO "Categories" VALUES (null, "Entertainment");
 INSERT INTO "Categories" VALUES (null, "Finance");
 INSERT INTO "Categories" VALUES (null, "Current Events");
+
+
+
+DROP TABLE Categories;
+DROP TABLE Comments;
+DROP TABLE DemotionQueue;
+DROP TABLE PostReactions;
+DROP TABLE Posts;
+DROP TABLE Reactions;
+DROP TABLE Subscriptions;
+DROP TABLE Tags;
+DROP TABLE Users;
+DROP TABLE PostTags;
+```
+
+
+DELETE FROM Tags
+WHERE id BETWEEN 19 AND 30;
+
