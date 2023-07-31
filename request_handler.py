@@ -7,7 +7,7 @@ from views import create_user, login_user, get_all_categories, get_single_catego
     create_post_tag, delete_post_tag, update_post_tag, get_all_reactions, get_single_reaction, get_all_post_reactions,\
     get_all_users, get_single_user, get_post_by_tag, get_posts_by_author, get_posts_by_category, \
     get_single_post_reaction, create_post_reaction, get_all_tags, get_single_tag, create_tag, delete_tag, update_tag, \
-    get_single_subscriptions, get_all_subscriptions, create_subscription, delete_subscription, update_user
+    get_single_subscriptions, get_all_subscriptions, create_subscription, delete_subscription, update_user, get_post_tag_by_post_id
 
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -131,6 +131,8 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = (get_posts_by_author(value))
             if key == 'category' and resource == 'posts':
                 response = (get_posts_by_category(value))
+            if key == 'post_id' and resource == 'post_tags':
+                response = (get_post_tag_by_post_id(value))
 
         if resource == "subscriptions":
             if id is not None:
