@@ -172,3 +172,5 @@ INSERT INTO "Categories" VALUES (null, "Politics");
 INSERT INTO "Categories" VALUES (null, "Entertainment");
 INSERT INTO "Categories" VALUES (null, "Finance");
 INSERT INTO "Categories" VALUES (null, "Current Events");
+
+DROP TABLE Posts
