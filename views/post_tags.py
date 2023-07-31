@@ -98,3 +98,25 @@ def update_post_tag(id, new_post_tag):
         return False
     else:
         return True
+def get_post_tag_by_post_id(value):
+    """Get post tag by post id."""
+    with sqlite3.connect("./db.sqlite3") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+        db_cursor.execute("""
+        SELECT
+            pt.id,
+            pt.post_id,
+            pt.tag_id,
+            p.id
+        FROM PostTags pt
+        JOIN Posts p
+        ON pt.post_id = p.id
+        WHERE pt.post_id = ?
+        """, ( value, ))
+        post_tags = []
+        dataset = db_cursor.fetchall()
+        for row in dataset:
+            post_tag = Post_Tag(row['id'], row['post_id'], row['tag_id'])
+            post_tags.append(post_tag.__dict__)
+    return post_tags
